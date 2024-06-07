@@ -1,0 +1,40 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.app > main {
+  padding-inline: 3rem;
+}
+
+.app > main {
+  flex-grow: 1;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.col {
+  flex-basis: 50%;
+}
+
+.details {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.imgContainer {
+  width: 100%;
+  flex-grow: 0;
+}
+
+.imgContainer > img {
+  width: 100%;
+}

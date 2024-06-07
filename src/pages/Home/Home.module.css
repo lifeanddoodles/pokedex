@@ -1,0 +1,16 @@
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.imgContainer {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: 50%;
+}
+
+.imgContainer > img {
+  width: 100%;
+}
