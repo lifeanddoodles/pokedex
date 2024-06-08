@@ -51,7 +51,6 @@ export const Pokemon = () => {
       dispatch(
         updateCurrentPokemonImg(`${singlePokemonData?.sprites.front_default}`),
       )
-      dispatch(updateCurrentPokemonId(singlePokemonData?.id as number))
       dispatch(updateCurrentPokemon(singlePokemonData as PokemonDetailsData))
     }
   }, [isSinglePokemonSuccess, singlePokemonData, dispatch])
