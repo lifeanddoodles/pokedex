@@ -1,7 +1,12 @@
 import { useEffect, useMemo } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { MAX_PAGE, OFFSET } from "../../utils/constants"
-import { selectViewCurrentPokemonDetails } from "../currentPokemon/currentPokemonSlice"
+import {
+  selectViewCurrentPokemonDetails,
+  updateCurrentPokemon,
+  updateCurrentPokemonId,
+  updateCurrentPokemonImg,
+} from "../currentPokemon/currentPokemonSlice"
 import styles from "./Pagination.module.css"
 import {
   selectCurrentPage,
@@ -10,6 +15,7 @@ import {
   updateOffset,
   updatePage,
 } from "./paginationSlice"
+import pokemonLogo from "/pokemon-icon.png"
 
 const Pagination = ({ children }: { children: React.ReactNode }) => {
   const currentPage = useAppSelector(selectCurrentPage)
@@ -18,6 +24,22 @@ const Pagination = ({ children }: { children: React.ReactNode }) => {
   const disablePrev = useAppSelector(selectDisablePrev)
   const disableNext = useAppSelector(selectDisableNext)
   const onDetailsPage = useAppSelector(selectViewCurrentPokemonDetails)
+
+  const handleDirection = (direction: "prev" | "next") => {
+    if (direction === "prev") {
+      dispatch(updatePage(currentPage - 1))
+    } else {
+      dispatch(updatePage(currentPage + 1))
+    }
+  }
+
+  const handlePageUpdate = (e: React.MouseEvent<HTMLElement>) => {
+    dispatch(updateCurrentPokemon(null))
+    dispatch(updateCurrentPokemonId(null))
+    dispatch(updateCurrentPokemonImg(pokemonLogo))
+
+    handleDirection(e.currentTarget.id as "prev" | "next")
+  }
 
   useEffect(() => {
     dispatch(updateOffset(newOffset))
@@ -29,15 +51,17 @@ const Pagination = ({ children }: { children: React.ReactNode }) => {
       {!onDetailsPage && (
         <section className={styles.controls}>
           <button
+            id="prev"
             className="button button--solid"
-            onClick={() => dispatch(updatePage(currentPage - 1))}
+            onClick={e => handlePageUpdate(e)}
             disabled={disablePrev}
           >
             Prev
           </button>
           <button
+            id="next"
             className="button button--solid"
-            onClick={() => dispatch(updatePage(currentPage + 1))}
+            onClick={e => handlePageUpdate(e)}
             disabled={currentPage === MAX_PAGE || disableNext}
           >
             Next

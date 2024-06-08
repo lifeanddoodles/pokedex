@@ -4,6 +4,7 @@
   --background-color-outline-hover: #f3f3f3;
   --background-color-solid-hover: var(--link-color-hover);
   --border-radius: 0.25rem;
+  --active: rgba(240, 90, 20, 0.125);
 }
 
 ul {
@@ -21,12 +22,11 @@ ul {
 }
 
 .app > main {
+  flex-grow: 1;
   padding-block: 3rem;
   padding-inline: 2rem;
-}
-
-.app > main {
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
@@ -95,6 +95,10 @@ ul {
   color: var(--link-color-hover);
   background-color: var(--background-color-outline-hover);
   border-color: var(--link-color-hover);
+}
+
+.active > .button {
+  background-color: var(--active);
 }
 
 @media screen and (min-width: 40rem) {

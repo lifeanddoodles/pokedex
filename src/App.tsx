@@ -3,6 +3,7 @@ import "./App.css"
 import { useAppSelector } from "./app/hooks"
 import { selectCurrentPokemonImg } from "./features/currentPokemon/currentPokemonSlice"
 import Pagination from "./features/pagination/Pagination"
+import styles from "./features/pagination/Pagination.module.css"
 
 const App = () => {
   const currentPokemonImg = useAppSelector(selectCurrentPokemonImg)
@@ -11,7 +12,7 @@ const App = () => {
     <div className="app">
       <main>
         <Pagination>
-          <section className="row">
+          <section className={`${styles.row} row`}>
             <figure className="col imgContainer">
               <img
                 width="300"

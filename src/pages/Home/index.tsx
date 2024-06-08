@@ -7,6 +7,7 @@ import {
   updateCurrentPokemonImg,
 } from "../../features/currentPokemon/currentPokemonSlice"
 import { Pokemon } from "../../features/pokemon/Pokemon"
+import pokemonLogo from "/pokemon-icon.png"
 
 const Home = () => {
   const dispatch = useAppDispatch()
@@ -14,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(updateCurrentPokemon(null))
     dispatch(updateCurrentPokemonId(null))
-    dispatch(updateCurrentPokemonImg("https://reactjs.org/logo-og.png"))
+    dispatch(updateCurrentPokemonImg(pokemonLogo))
     dispatch(toggleViewDetails(false))
   }, [dispatch])
 

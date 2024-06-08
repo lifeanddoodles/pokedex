@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
 import { capitalize } from "../../utils"
 import { LAST_PAGE_LIMIT, MAX_PAGE } from "../../utils/constants"
 import {
+  selectCurrentPokemonId,
   toggleViewDetails,
   updateCurrentPokemon,
   updateCurrentPokemonId,
@@ -23,7 +24,7 @@ import { useGetPokemonQuery } from "./pokemonApiSlice"
 export const Pokemon = () => {
   const currentOffset = useAppSelector(selectCurrentOffset)
   const currentPage = useAppSelector(selectCurrentPage)
-  const [currentPokemonId, setCurrentPokemonId] = useState<number | null>(null)
+  const currentPokemonId = useAppSelector(selectCurrentPokemonId)
   const limit = useMemo(
     () => (currentPage === MAX_PAGE ? LAST_PAGE_LIMIT : 20),
     [currentPage],
@@ -57,7 +58,7 @@ export const Pokemon = () => {
 
   const handleOnClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
     e.preventDefault()
-    setCurrentPokemonId(id)
+    dispatch(updateCurrentPokemonId(id))
   }
 
   const handleOnDoubleClick = (
@@ -85,7 +86,10 @@ export const Pokemon = () => {
             const id = Number(url.split("/").slice(-2, -1)[0])
 
             return (
-              <li key={name} className={styles.resultsItem}>
+              <li
+                key={name}
+                className={`${styles.resultsItem}${currentPokemonId === id ? " active" : ""}`}
+              >
                 <button
                   className="button button--outline"
                   onClick={e => handleOnClick(e, id)}
