@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import {
+  updateCurrentPokemon,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
 } from "../../features/currentPokemon/currentPokemonSlice"
@@ -13,6 +14,7 @@ const Home = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    dispatch(updateCurrentPokemon(null))
     dispatch(updateCurrentPokemonId(null))
     dispatch(updateCurrentPokemonImg("https://reactjs.org/logo-og.png"))
   }, [dispatch])

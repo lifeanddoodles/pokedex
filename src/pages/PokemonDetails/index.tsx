@@ -1,50 +1,40 @@
-// import { useState } from "react"
-import { useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { useAppDispatch } from "../../app/hooks"
+import { useAppSelector } from "../../app/hooks"
 import {
-  updateCurrentPokemonId,
-  updateCurrentPokemonImg,
+  selectCurrentPokemon,
+  type PokemonDetailsData,
 } from "../../features/currentPokemon/currentPokemonSlice"
-import { useGetSinglePokemonQuery } from "../../features/pokemon/pokemonApiSlice"
+import { capitalize } from "../../utils"
+
+const getData = (resource: PokemonDetailsData, labels: string[]) => {
+  return labels.map(label => {
+    return (
+      <li>
+        <p>
+          <strong>{capitalize(label)}:</strong> {resource[label]}
+        </p>
+      </li>
+    )
+  })
+}
 
 const PokemonDetails = () => {
-  const params = useParams()
-  const id = Number(params.id)
+  const currentPokemon = useAppSelector(selectCurrentPokemon)
 
-  const { data, isError, isLoading, isSuccess } = useGetSinglePokemonQuery(id)
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(updateCurrentPokemonImg(`${data?.sprites.front_default}`))
-    dispatch(updateCurrentPokemonId(data?.id as number))
-  }, [data, dispatch])
-
-  if (isError) {
-    return (
-      <div>
-        <h1>There was an error!!!</h1>
-      </div>
-    )
+  if (!currentPokemon) {
+    return <h1 role="status">No data available</h1>
   }
 
-  if (isLoading) {
     return (
-      <div>
-        <h1>Loading...</h1>
-      </div>
-    )
-  }
-
-  if (isSuccess) {
-    return (
-      <div>
-        <h1>{data.name}</h1>
-      </div>
-    )
-  }
-
-  return null
+    <>
+      <h1>{capitalize(currentPokemon.name)}</h1>
+      <ul role="group">
+        {getData(currentPokemon, [
+          "height",
+          "weight",
+        ])}
+      </ul>
+    </>
+  )
 }
 
 export default PokemonDetails

@@ -1,3 +1,17 @@
+:root {
+  --link-color: #096cdd;
+  --link-color-hover: #0856b0;
+  --background-color-outline-hover: #f9f9f9;
+  --background-color-solid-hover: var(--link-color-hover);
+  --border-radius: 0.25rem;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 .app {
   min-height: 100vh;
   display: flex;
@@ -7,7 +21,8 @@
 }
 
 .app > main {
-  padding-inline: 3rem;
+  padding-block: 3rem;
+  padding-inline: 2rem;
 }
 
 .app > main {
@@ -16,9 +31,11 @@
 
 .row {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
 }
 
 .col {
@@ -33,8 +50,34 @@
 .imgContainer {
   width: 100%;
   flex-grow: 0;
+  margin: 0;
 }
 
 .imgContainer > img {
   width: 100%;
+  object-fit: cover;
+}
+
+.button {
+  appearance: none;
+  background: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.button:disabled {
+  color: #555;
+  background: lightgray;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 40rem) {
+  .row {
+    flex-direction: row;
+    max-width: 60rem;
+  }
 }

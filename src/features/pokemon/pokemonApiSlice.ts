@@ -12,11 +12,10 @@ interface PokemonDetailsResponse extends Record<string, any> {
 interface PokemonApiResponse {
   results: Pokemon[]
   count: number
-  next: string
-  prev: string
+  next: string | null
+  prev: string | null
 }
 
-// Define a service using a base URL and expected endpoints
 export const pokemonApiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/pokemon" }),
   reducerPath: "pokemonApi",

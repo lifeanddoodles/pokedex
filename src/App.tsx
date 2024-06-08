@@ -8,13 +8,18 @@ const App = () => {
   const currentPokemonImg = useAppSelector(selectCurrentPokemonImg)
 
   return (
-    <div className="App">
+    <div className="app">
       <main>
         <Pagination>
           <section className="row">
-            <div className="col imgContainer">
-              <img src={currentPokemonImg} alt="Current Pokemon" />
-            </div>
+            <figure className="col imgContainer">
+              <img
+                width="300"
+                height="300"
+                src={currentPokemonImg}
+                alt="Current Pokemon"
+              />
+            </figure>
             <div className="col details">
               <Outlet />
             </div>

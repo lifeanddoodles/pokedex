@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.controls button {
+  border: 2px solid var(--link-color);
+  color: #fff;
+  background-color: var(--link-color);
+}
+
+.controls button:hover {
+  background-color: var(--background-color-solid-hover);
+  border-color: var(--background-color-solid-hover);
+}
