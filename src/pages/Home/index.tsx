@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import {
+  toggleViewDetails,
   updateCurrentPokemon,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
@@ -17,6 +18,7 @@ const Home = () => {
     dispatch(updateCurrentPokemon(null))
     dispatch(updateCurrentPokemonId(null))
     dispatch(updateCurrentPokemonImg("https://reactjs.org/logo-og.png"))
+    dispatch(toggleViewDetails(false))
   }, [dispatch])
 
   return <Pokemon currentOffset={currentOffset} />

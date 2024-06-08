@@ -8,12 +8,14 @@ export interface CurrentPokemonState {
   id: number | null
   imgSrc: string
   pokemon: PokemonDetailsData | null
+  viewDetails: boolean
 }
 
 const initialState: CurrentPokemonState = {
   id: null,
   imgSrc: "https://reactjs.org/logo-og.png",
   pokemon: null,
+  viewDetails: false,
 }
 
 export const currentPokemonSlice = createSlice({
@@ -35,18 +37,31 @@ export const currentPokemonSlice = createSlice({
         state.pokemon = action.payload
       },
     ),
+    toggleViewDetails: create.reducer(
+      (state, action: PayloadAction<boolean>) => {
+        state.viewDetails = action.payload
+      },
+    ),
   }),
   selectors: {
+    selectCurrentPokemonId: currentPokemonState => currentPokemonState.id,
     selectCurrentPokemonImg: currentPokemonState => currentPokemonState.imgSrc,
     selectCurrentPokemon: currentPokemonState => currentPokemonState.pokemon,
+    selectViewCurrentPokemonDetails: currentPokemonState =>
+      currentPokemonState.viewDetails,
   },
 })
 
 export const {
+  toggleViewDetails,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
   updateCurrentPokemon,
 } = currentPokemonSlice.actions
 
-export const { selectCurrentPokemonImg, selectCurrentPokemon } =
-  currentPokemonSlice.selectors
+export const {
+  selectCurrentPokemonId,
+  selectCurrentPokemonImg,
+  selectCurrentPokemon,
+  selectViewCurrentPokemonDetails,
+} = currentPokemonSlice.selectors

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../app/hooks"
+import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
 import { capitalize } from "../../utils"
 import {
+  toggleViewDetails,
   updateCurrentPokemon,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
@@ -13,23 +15,7 @@ import {
   toggleDisablePrev,
 } from "../pagination/paginationSlice"
 import styles from "./Pokemon.module.css"
-import { useGetPokemonQuery, useGetSinglePokemonQuery } from "./pokemonApiSlice"
-
-export const useCurrentPokemonDetails = (id: number | null) => {
-  const {
-    data: singlePokemonData,
-    isError: isErrorPokemon,
-    isLoading: isSinglePokemonLoading,
-    isSuccess: isSinglePokemonSuccess,
-  } = useGetSinglePokemonQuery(id!, { skip: id === null })
-
-  return {
-    singlePokemonData,
-    isErrorPokemon,
-    isSinglePokemonLoading,
-    isSinglePokemonSuccess,
-  }
-}
+import { useGetPokemonQuery } from "./pokemonApiSlice"
 
 export const Pokemon = ({ currentOffset = 0 }: { currentOffset?: number }) => {
   const [currentPokemonId, setCurrentPokemonId] = useState<number | null>(null)
@@ -68,6 +54,7 @@ export const Pokemon = ({ currentOffset = 0 }: { currentOffset?: number }) => {
     url: string,
   ) => {
     e.preventDefault()
+    dispatch(toggleViewDetails(true))
     return navigate(url)
   }
 

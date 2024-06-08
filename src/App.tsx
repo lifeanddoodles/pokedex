@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom"
 import "./App.css"
 import { useAppSelector } from "./app/hooks"
-import Pagination from "./components/Pagination"
 import { selectCurrentPokemonImg } from "./features/currentPokemon/currentPokemonSlice"
+import Pagination from "./features/pagination/Pagination"
 
 const App = () => {
   const currentPokemonImg = useAppSelector(selectCurrentPokemonImg)
