@@ -1,8 +1,7 @@
-import { useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
-import { capitalize } from "../../utils"
 import { LAST_PAGE_LIMIT, MAX_PAGE } from "../../utils/constants"
 import {
   selectCurrentPokemonId,
@@ -19,6 +18,7 @@ import {
   toggleDisablePrev,
 } from "../pagination/paginationSlice"
 import styles from "./Pokemon.module.css"
+import ResultsItem from "./ResultsItem"
 import { useGetPokemonQuery } from "./pokemonApiSlice"
 
 export const Pokemon = () => {
@@ -55,19 +55,22 @@ export const Pokemon = () => {
     }
   }, [isSinglePokemonSuccess, singlePokemonData, dispatch])
 
-  const handleOnClick = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    e.preventDefault()
-    dispatch(updateCurrentPokemonId(id))
-  }
+  const handleOnClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>, id: number) => {
+      e.preventDefault()
+      dispatch(updateCurrentPokemonId(id))
+    },
+    [dispatch],
+  )
 
-  const handleOnDoubleClick = (
-    e: React.MouseEvent<HTMLElement>,
-    url: string,
-  ) => {
-    e.preventDefault()
-    dispatch(toggleViewDetails(true))
-    return navigate(url)
-  }
+  const handleOnDoubleClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>, url: string) => {
+      e.preventDefault()
+      dispatch(toggleViewDetails(true))
+      return navigate(url)
+    },
+    [dispatch, navigate],
+  )
 
   if (isError) {
     return <h1 role="status">There was an error!!!</h1>
@@ -85,18 +88,13 @@ export const Pokemon = () => {
             const id = Number(url.split("/").slice(-2, -1)[0])
 
             return (
-              <li
-                key={name}
+              <ResultsItem
+                key={id}
                 className={`${styles.resultsItem}${currentPokemonId === id ? " active" : ""}`}
-              >
-                <button
-                  className="button button--outline"
-                  onClick={e => handleOnClick(e, id)}
-                  onDoubleClick={e => handleOnDoubleClick(e, `/pokemon/${id}`)}
-                >
-                  <h2>{capitalize(name)}</h2>
-                </button>
-              </li>
+                onClick={e => handleOnClick(e, id)}
+                onDoubleClick={e => handleOnDoubleClick(e, `/pokemon/${id}`)}
+                name={name}
+              />
             )
           })}
         </ul>

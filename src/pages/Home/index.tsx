@@ -19,7 +19,12 @@ const Home = () => {
     dispatch(toggleViewDetails(false))
   }, [dispatch])
 
-  return <Pokemon />
+  return (
+    <>
+      <h1 className="sr-only">Pokemon List</h1>
+      <Pokemon />
+    </>
+  )
 }
 
 export default Home

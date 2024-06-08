@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import Button from "../../components/Button"
 import { MAX_PAGE, OFFSET } from "../../utils/constants"
 import {
   selectViewCurrentPokemonDetails,
@@ -50,22 +51,22 @@ const Pagination = ({ children }: { children: React.ReactNode }) => {
       {children}
       {!onDetailsPage && (
         <section className={styles.controls}>
-          <button
+          <Button
             id="prev"
             className="button button--solid"
             onClick={e => handlePageUpdate(e)}
             disabled={disablePrev}
           >
             Prev
-          </button>
-          <button
+          </Button>
+          <Button
             id="next"
             className="button button--solid"
             onClick={e => handlePageUpdate(e)}
             disabled={currentPage === MAX_PAGE || disableNext}
           >
             Next
-          </button>
+          </Button>
         </section>
       )}
     </section>

@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { Fragment } from "react/jsx-runtime"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import Button from "../../components/Button"
 import {
   selectCurrentPokemon,
   toggleViewDetails,
@@ -58,9 +59,9 @@ const PokemonDetails = () => {
 
   return (
     <>
-      <button className="button button--solid" onClick={() => navigate(-1)}>
+      <Button className="button button--solid" onClick={() => navigate(-1)}>
         Go back
-      </button>
+      </Button>
       <h1>{capitalize(currentPokemon.name)}</h1>
       <ul role="group">
         {
