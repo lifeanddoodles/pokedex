@@ -1,17 +1,14 @@
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../../app/hooks"
+import { useAppDispatch } from "../../app/hooks"
 import {
   toggleViewDetails,
   updateCurrentPokemon,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
 } from "../../features/currentPokemon/currentPokemonSlice"
-import { selectCurrentOffset } from "../../features/pagination/paginationSlice"
 import { Pokemon } from "../../features/pokemon/Pokemon"
 
 const Home = () => {
-  const currentOffset = useAppSelector(selectCurrentOffset)
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -21,7 +18,7 @@ const Home = () => {
     dispatch(toggleViewDetails(false))
   }, [dispatch])
 
-  return <Pokemon currentOffset={currentOffset} />
+  return <Pokemon />
 }
 
 export default Home

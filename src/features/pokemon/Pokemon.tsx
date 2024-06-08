@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch } from "../../app/hooks"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
 import { capitalize } from "../../utils"
+import { LAST_PAGE_LIMIT, MAX_PAGE } from "../../utils/constants"
 import {
   toggleViewDetails,
   updateCurrentPokemon,
@@ -11,16 +12,26 @@ import {
   type PokemonDetailsData,
 } from "../currentPokemon/currentPokemonSlice"
 import {
+  selectCurrentOffset,
+  selectCurrentPage,
   toggleDisableNext,
   toggleDisablePrev,
 } from "../pagination/paginationSlice"
 import styles from "./Pokemon.module.css"
 import { useGetPokemonQuery } from "./pokemonApiSlice"
 
-export const Pokemon = ({ currentOffset = 0 }: { currentOffset?: number }) => {
+export const Pokemon = () => {
+  const currentOffset = useAppSelector(selectCurrentOffset)
+  const currentPage = useAppSelector(selectCurrentPage)
   const [currentPokemonId, setCurrentPokemonId] = useState<number | null>(null)
-  const { data, isError, isLoading, isSuccess } =
-    useGetPokemonQuery(currentOffset)
+  const limit = useMemo(
+    () => (currentPage === MAX_PAGE ? LAST_PAGE_LIMIT : 20),
+    [currentPage],
+  )
+  const { data, isError, isLoading, isSuccess } = useGetPokemonQuery({
+    offset: currentOffset,
+    limit,
+  })
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -28,11 +39,11 @@ export const Pokemon = ({ currentOffset = 0 }: { currentOffset?: number }) => {
     useCurrentPokemonDetails(currentPokemonId)
 
   useEffect(() => {
-    if (data?.next && data?.prev) {
-      dispatch(toggleDisablePrev(data?.prev === null ? true : false))
-      dispatch(toggleDisableNext(data?.next === null ? true : false))
+    if (data) {
+      dispatch(toggleDisablePrev(!data?.previous))
+      dispatch(toggleDisableNext(!data?.next))
     }
-  }, [data?.next, data?.prev, dispatch])
+  }, [data, dispatch])
 
   useEffect(() => {
     if (isSinglePokemonSuccess && singlePokemonData) {

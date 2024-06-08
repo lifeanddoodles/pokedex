@@ -4,6 +4,7 @@ import { Fragment } from "react/jsx-runtime"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import {
   selectCurrentPokemon,
+  toggleViewDetails,
   updateCurrentPokemon,
   updateCurrentPokemonId,
   updateCurrentPokemonImg,
@@ -35,16 +36,13 @@ const PokemonDetails = () => {
   const currentPokemon = currentPokemonFromState ?? singlePokemonData
 
   useEffect(() => {
-    if (
-      currentPokemonFromState === null &&
-      isSinglePokemonSuccess &&
-      singlePokemonData
-    ) {
+    if (isSinglePokemonSuccess && singlePokemonData) {
       dispatch(
         updateCurrentPokemonImg(`${singlePokemonData?.sprites.front_default}`),
       )
       dispatch(updateCurrentPokemonId(singlePokemonData?.id as number))
       dispatch(updateCurrentPokemon(singlePokemonData as PokemonDetailsData))
+      dispatch(toggleViewDetails(true))
     }
   }, [
     currentPokemonFromState,
