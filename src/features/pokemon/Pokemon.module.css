@@ -4,15 +4,7 @@
 }
 
 .resultsItem button {
-  color: var(--link-color);
-  border: 2px solid transparent;
   width: 100%;
-}
-
-.resultsItem button:hover {
-  color: var(--link-color-hover);
-  background-color: var(--background-color-outline-hover);
-  border-color: var(--link-color-hover);
 }
 
 .resultsItem h2 {

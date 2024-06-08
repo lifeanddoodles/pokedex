@@ -1,7 +1,7 @@
 :root {
   --link-color: #096cdd;
   --link-color-hover: #0856b0;
-  --background-color-outline-hover: #f9f9f9;
+  --background-color-outline-hover: #f3f3f3;
   --background-color-solid-hover: var(--link-color-hover);
   --border-radius: 0.25rem;
 }
@@ -64,6 +64,7 @@ ul {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+  border: 2px solid var(--link-color);
   border-radius: var(--border-radius);
   transition: background-color 0.2s ease-in-out;
 }
@@ -73,6 +74,27 @@ ul {
   background: lightgray;
   border-color: transparent;
   pointer-events: none;
+}
+
+.button--solid {
+  color: #fff;
+  background-color: var(--link-color);
+}
+
+.button--solid:hover {
+  background-color: var(--background-color-solid-hover);
+  border-color: var(--background-color-solid-hover);
+}
+
+.button--outline {
+  color: var(--link-color);
+  background-color: transparent;
+}
+
+.button--outline:hover {
+  color: var(--link-color-hover);
+  background-color: var(--background-color-outline-hover);
+  border-color: var(--link-color-hover);
 }
 
 @media screen and (min-width: 40rem) {

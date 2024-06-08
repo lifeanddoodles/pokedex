@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Fragment } from "react/jsx-runtime"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import {
@@ -32,6 +32,7 @@ const PokemonDetails = () => {
   const { singlePokemonData, isSinglePokemonSuccess } =
     useCurrentPokemonDetails(paramsId, currentPokemonFromState !== null)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const currentPokemon = currentPokemonFromState ?? singlePokemonData
 
@@ -57,6 +58,9 @@ const PokemonDetails = () => {
 
   return (
     <>
+      <button className="button button--solid" onClick={() => navigate(-1)}>
+        Go back
+      </button>
       <h1>{capitalize(currentPokemon.name)}</h1>
       <ul role="group">
         {

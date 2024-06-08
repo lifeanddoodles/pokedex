@@ -87,7 +87,7 @@ export const Pokemon = () => {
             return (
               <li key={name} className={styles.resultsItem}>
                 <button
-                  className="button"
+                  className="button button--outline"
                   onClick={e => handleOnClick(e, id)}
                   onDoubleClick={e => handleOnDoubleClick(e, `/pokemon/${id}`)}
                 >

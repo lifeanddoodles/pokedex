@@ -29,14 +29,14 @@ const Pagination = ({ children }: { children: React.ReactNode }) => {
       {!onDetailsPage && (
         <section className={styles.controls}>
           <button
-            className="button"
+            className="button button--solid"
             onClick={() => dispatch(updatePage(currentPage - 1))}
             disabled={disablePrev}
           >
             Prev
           </button>
           <button
-            className="button"
+            className="button button--solid"
             onClick={() => dispatch(updatePage(currentPage + 1))}
             disabled={currentPage === MAX_PAGE || disableNext}
           >
