@@ -1,0 +1,17 @@
+.metaCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metaRow {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+@media screen and (min-width: 20rem) {
+  .metaCol {
+    flex-basis: 50%;
+  }
+}

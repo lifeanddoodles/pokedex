@@ -45,9 +45,12 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
   gap: 1rem;
   width: 100%;
+}
+
+.layout-row {
+  justify-content: center;
 }
 
 .col {
@@ -57,6 +60,7 @@ ul {
 .details {
   flex-grow: 1;
   flex-shrink: 0;
+  width: 100%;
 }
 
 .imgContainer {

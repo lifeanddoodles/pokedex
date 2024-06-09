@@ -12,14 +12,9 @@ const App = () => {
     <div className="app">
       <main>
         <Pagination>
-          <section className={`${styles.row} row`}>
+          <section className={`${styles.row} row layout-row`}>
             <figure className="col imgContainer">
-              <img
-                width="300"
-                height="300"
-                src={currentPokemonImg}
-                alt="Current Pokemon"
-              />
+              <img width="300" height="300" src={currentPokemonImg} alt="" />
             </figure>
             <div className="col details">
               <Outlet />
