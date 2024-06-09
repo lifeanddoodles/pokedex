@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import Button from "../../components/Button"
 import { MAX_PAGE, OFFSET } from "../../utils/constants"
@@ -18,29 +18,52 @@ import {
 } from "./paginationSlice"
 import pokemonLogo from "/pokemon-icon.png"
 
-const Pagination = ({ children }: { children: React.ReactNode }) => {
+/**
+ * Renders a pagination component with buttons to navigate between results pages.
+ *
+ * @param {Object} props - The component props.
+ * @param {React.ReactNode} props.children - The content to be rendered inside the pagination component.
+ * @return {JSX.Element} The pagination component.
+ */
+const Pagination = ({
+  children,
+}: {
+  children: React.ReactNode
+}): JSX.Element => {
   const currentPage = useAppSelector(selectCurrentPage)
   const newOffset = useMemo(() => (currentPage - 1) * OFFSET, [currentPage])
   const dispatch = useAppDispatch()
   const disablePrev = useAppSelector(selectDisablePrev)
   const disableNext = useAppSelector(selectDisableNext)
+  /**
+   * Determines if the current page is the details page.
+   * If so, we don't need to show pagination controls
+   */
   const onDetailsPage = useAppSelector(selectViewCurrentPokemonDetails)
 
-  const handleDirection = (direction: "prev" | "next") => {
-    if (direction === "prev") {
-      dispatch(updatePage(currentPage - 1))
-    } else {
-      dispatch(updatePage(currentPage + 1))
-    }
-  }
+  const handleDirection = useCallback(
+    (direction: "prev" | "next") => {
+      if (direction === "prev") {
+        dispatch(updatePage(currentPage - 1))
+      } else {
+        dispatch(updatePage(currentPage + 1))
+      }
+    },
+    [currentPage, dispatch],
+  )
 
-  const handlePageUpdate = (e: React.MouseEvent<HTMLElement>) => {
-    dispatch(updateCurrentPokemon(null))
-    dispatch(updateCurrentPokemonId(null))
-    dispatch(updateCurrentPokemonImg(pokemonLogo))
+  const handlePageUpdate = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      // Reset current pokemon details when changing pages
+      dispatch(updateCurrentPokemon(null))
+      dispatch(updateCurrentPokemonId(null))
+      dispatch(updateCurrentPokemonImg(pokemonLogo))
 
-    handleDirection(e.currentTarget.id as "prev" | "next")
-  }
+      // Handle page update to the appropriate direction
+      handleDirection(e.currentTarget.id as "prev" | "next")
+    },
+    [dispatch, handleDirection],
+  )
 
   useEffect(() => {
     dispatch(updateOffset(newOffset))

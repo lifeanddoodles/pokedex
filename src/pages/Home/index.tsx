@@ -13,6 +13,7 @@ const Home = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    // If we are Home, automatically reset current pokemon details
     dispatch(updateCurrentPokemon(null))
     dispatch(updateCurrentPokemonId(null))
     dispatch(updateCurrentPokemonImg(pokemonLogo))

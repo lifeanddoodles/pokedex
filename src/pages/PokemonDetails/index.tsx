@@ -15,7 +15,12 @@ import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
 import { capitalize } from "../../utils"
 import DetailsGroup from "./DetailsGroup"
 
-const PokemonDetails = () => {
+/**
+ * Renders the details of a Pokemon based on an ID or the current Pokemon in the state.
+ *
+ * @return {JSX.Element} The Pokemon details component.
+ */
+const PokemonDetails = (): JSX.Element => {
   const params = useParams()
   const paramsId = Number(params.id)
   /**

@@ -8,12 +8,21 @@ type ResultsItemProps = {
   onDoubleClick?: React.PointerEventHandler<HTMLButtonElement>
 }
 
+/**
+ * Renders a single result item for a list of items.
+ *
+ * @param {string} className - The class name for the result item.
+ * @param {string} name - The name of the item.
+ * @param {React.PointerEventHandler<HTMLButtonElement>} onClick - The click event handler for the item.
+ * @param {React.PointerEventHandler<HTMLButtonElement>} onDoubleClick - The double click event handler for the item.
+ * @return {JSX.Element} The rendered result list item.
+ */
 const ResultsItem = ({
   className,
   name,
   onClick,
   onDoubleClick,
-}: ResultsItemProps) => {
+}: ResultsItemProps): JSX.Element => {
   return (
     <li className={className}>
       <Button

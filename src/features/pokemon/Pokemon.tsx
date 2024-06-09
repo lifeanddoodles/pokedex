@@ -21,7 +21,12 @@ import styles from "./Pokemon.module.css"
 import ResultsItem from "./ResultsItem"
 import { useGetPokemonQuery } from "./pokemonApiSlice"
 
-export const Pokemon = () => {
+/**
+ * Renders a component that displays a list of Pokemon.
+ *
+ * @return {JSX.Element | null} The rendered component.
+ */
+export const Pokemon = (): JSX.Element | null => {
   const currentOffset = useAppSelector(selectCurrentOffset)
   const currentPage = useAppSelector(selectCurrentPage)
   const currentPokemonId = useAppSelector(selectCurrentPokemonId)
@@ -40,6 +45,7 @@ export const Pokemon = () => {
     useCurrentPokemonDetails(currentPokemonId)
 
   useEffect(() => {
+    // Disable prev or next button if no data available
     if (data) {
       dispatch(toggleDisablePrev(!data?.previous))
       dispatch(toggleDisableNext(!data?.next))
@@ -47,6 +53,7 @@ export const Pokemon = () => {
   }, [data, dispatch])
 
   useEffect(() => {
+    // Once the data is fetched, update the missing current pokemon data in the state
     if (isSinglePokemonSuccess && singlePokemonData) {
       dispatch(
         updateCurrentPokemonImg(`${singlePokemonData?.sprites.front_default}`),
@@ -56,16 +63,22 @@ export const Pokemon = () => {
   }, [isSinglePokemonSuccess, singlePokemonData, dispatch])
 
   const handleOnClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>, id: number) => {
-      e.preventDefault()
+    (id: number) => {
+      /**
+       * On click, update the current pokemon ID in the state,
+       * this will trigger the useCurrentPokemonDetails hook
+       */
       dispatch(updateCurrentPokemonId(id))
     },
     [dispatch],
   )
 
   const handleOnDoubleClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>, url: string) => {
-      e.preventDefault()
+    (url: string) => {
+      /**
+       * On double click, navigate to the pokemon details page
+       * and toggle the view details state to true
+       */
       dispatch(toggleViewDetails(true))
       return navigate(url)
     },
@@ -91,8 +104,8 @@ export const Pokemon = () => {
               <ResultsItem
                 key={id}
                 className={`${styles.resultsItem}${currentPokemonId === id ? " active" : ""}`}
-                onClick={e => handleOnClick(e, id)}
-                onDoubleClick={e => handleOnDoubleClick(e, `/pokemon/${id}`)}
+                onClick={() => handleOnClick(id)}
+                onDoubleClick={() => handleOnDoubleClick(`/pokemon/${id}`)}
                 name={name}
               />
             )
