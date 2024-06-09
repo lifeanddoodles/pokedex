@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { Provider } from "react-redux"
 import { MemoryRouter } from "react-router-dom"
 import { mockPokemonListData, mockSinglePokemonData } from "../../__mocks__/"
@@ -67,15 +67,17 @@ test("renders Pokemon list and handles click events", async () => {
     </Provider>,
   )
 
-  const selectedPokemon = new RegExp(mockSinglePokemonData.name, "i")
+  await waitFor(async () => {
+    const selectedPokemon = new RegExp(mockSinglePokemonData.name, "i")
 
-  expect(await screen.findByText(selectedPokemon)).toBeInTheDocument()
+    expect(await screen.findByText(selectedPokemon)).toBeInTheDocument()
 
-  fireEvent.click(screen.getByText(selectedPokemon))
-  expect(successStore.getState().currentPokemon.id).toBe(
-    mockSinglePokemonData.id,
-  )
-  expect(successStore.getState().currentPokemon.imgSrc).toBe(
-    mockSinglePokemonData.sprites.front_default,
-  )
+    fireEvent.click(screen.getByText(selectedPokemon))
+    expect(successStore.getState().currentPokemon.id).toBe(
+      mockSinglePokemonData.id,
+    )
+    expect(successStore.getState().currentPokemon.imgSrc).toBe(
+      mockSinglePokemonData.sprites.front_default,
+    )
+  })
 })
