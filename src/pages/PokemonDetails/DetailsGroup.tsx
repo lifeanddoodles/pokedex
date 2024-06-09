@@ -1,6 +1,6 @@
 import MetaContentContainer from "../../components/MetaContentContainer"
 import { type PokemonDetailsData } from "../../features/currentPokemon/currentPokemonSlice"
-import { formatMetaContent } from "./utils"
+import { formatMetaContent } from "../../utils"
 
 const DetailsGroup = ({
   resource,

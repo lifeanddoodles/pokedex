@@ -1,3 +1,5 @@
+import { formatMetaContent, getValue } from "../utils"
+
 export const mockPokemonListData = {
   results: [
     { name: "bulbasaur", url: "https://pokeapi.co/api/v2/pokemon/1/" },
@@ -102,3 +104,18 @@ export const mockSinglePokemonData = {
     },
   ],
 }
+
+export const mockItemsForDescriptionListPair = formatMetaContent(
+  mockSinglePokemonData,
+  [{ label: "height" }, { label: "weight" }],
+)
+
+export const mockItemsForDescriptionListOdd = formatMetaContent(
+  mockSinglePokemonData,
+  [{ label: "height" }, { label: "weight" }, { label: "base_experience" }],
+)
+
+export const mockItemsForRangeGroup = getValue("stats", mockSinglePokemonData, [
+  "stat.name",
+  "base_stat",
+])

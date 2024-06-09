@@ -24,7 +24,7 @@ const createTestStore = (preloadedState = {}) => {
   return store
 }
 
-describe.only("Pagination Component", () => {
+describe("Pagination Component", () => {
   test("renders correctly", () => {
     const store = createTestStore()
     render(

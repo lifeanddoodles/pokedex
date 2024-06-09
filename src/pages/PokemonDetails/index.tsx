@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import Button from "../../components/Button"
-import Range from "../../components/Range"
+import RangeGroup from "../../components/RangeGroup"
 import {
   selectCurrentPokemon,
   toggleViewDetails,
@@ -12,24 +12,8 @@ import {
   type PokemonDetailsData,
 } from "../../features/currentPokemon/currentPokemonSlice"
 import useCurrentPokemonDetails from "../../hooks/useCurrentPokemonDetails"
-import { capitalize, getValue } from "../../utils"
+import { capitalize } from "../../utils"
 import DetailsGroup from "./DetailsGroup"
-
-const RangeGroup = ({
-  label,
-  resource,
-  pathToValue,
-}: {
-  label: string
-  resource: any
-  pathToValue: string[]
-}) => {
-  const result = getValue(label, resource, pathToValue)
-
-  return result.map((item: string[]) => (
-    <Range key={item[0]} label={item[0]} value={Number(item[1])} />
-  ))
-}
 
 const PokemonDetails = () => {
   const params = useParams()

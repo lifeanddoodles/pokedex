@@ -1,6 +1,13 @@
+import { type PokemonDetailsData } from "../features/currentPokemon/currentPokemonSlice"
+
 export const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+export const formatLabel = (label: string) =>
+  label.replace(" ", "-").toLowerCase()
+
+export const removeDashes = (label: string) => label.replace(/[-_]/, " ")
 
 const getValueFromPath = (path: string, resource: any) => {
   let currentStepValue = resource
@@ -10,7 +17,7 @@ const getValueFromPath = (path: string, resource: any) => {
       currentStepValue = currentStepValue[splitPath[i]]
     }
   }
-  return capitalize(currentStepValue.toString().replace(/[-_]/, " "))
+  return capitalize(removeDashes(currentStepValue.toString()))
 }
 
 export const getValue = (
@@ -38,4 +45,16 @@ export const getValue = (
     }))
   }
   return resource[key] as string
+}
+
+export const formatMetaContent = (
+  resource: PokemonDetailsData,
+  labels: { label: string; pathToValue?: string }[],
+) => {
+  return labels.map(
+    ({ label, pathToValue }: { label: string; pathToValue?: string }) => {
+      const value = getValue(label, resource, pathToValue)
+      return { label, value }
+    },
+  )
 }

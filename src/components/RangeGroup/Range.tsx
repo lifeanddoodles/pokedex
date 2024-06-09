@@ -1,7 +1,8 @@
+import { formatLabel } from "../../utils"
 import styles from "./Range.module.css"
 
 const Range = ({ label, value }: { label: string; value: number }) => {
-  const formattedLabel = label.replace(" ", "-").toLowerCase()
+  const formattedLabel = formatLabel(label)
 
   return (
     <div className={styles.rangeInput} role="group">
