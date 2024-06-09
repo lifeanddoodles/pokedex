@@ -13,7 +13,7 @@ export interface CurrentPokemonState {
 
 const initialState: CurrentPokemonState = {
   id: null,
-  imgSrc: "https://reactjs.org/logo-og.png",
+  imgSrc: "/pokemon-icon.png",
   pokemon: null,
   viewDetails: false,
 }
