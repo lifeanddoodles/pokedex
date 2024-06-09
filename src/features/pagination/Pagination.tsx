@@ -57,6 +57,10 @@ const Pagination = ({
       // Reset current pokemon details when changing pages
       dispatch(updateCurrentPokemon(null))
       dispatch(updateCurrentPokemonId(null))
+      /**
+       * FIXME: There is a bit of a delay when you change pages.
+       * You see the old pokemon for a moment and then the new one
+       */
       dispatch(updateCurrentPokemonImg(pokemonLogo))
 
       // Handle page update to the appropriate direction
