@@ -73,7 +73,7 @@ const PokemonDetails = (): JSX.Element => {
       <Button className="button button--solid" onClick={handleGoBack}>
         Go back
       </Button>
-      <h1>{capitalize(currentPokemon.name)}</h1>
+      <h1 className="title">{capitalize(currentPokemon.name)}</h1>
       <DetailsGroup
         resource={currentPokemon}
         labels={[{ label: "height" }, { label: "weight" }]}

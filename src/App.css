@@ -1,6 +1,8 @@
 :root {
-  --link-color: #3264b0;
-  --link-color-hover: #1d2c5e;
+  --blue: #3264b0;
+  --blue-dark: #1d2c5e;
+  --link-color: var(--blue);
+  --link-color-hover: var(--blue-dark);
   --background-color-outline-hover: #f3f3f3;
   --background-color-solid-hover: var(--link-color-hover);
   --border-radius: 0.25rem;
@@ -74,11 +76,18 @@ ul {
   object-fit: cover;
 }
 
+.title {
+  font-size: 3rem;
+  margin-block: 2rem;
+  color: var(--blue-dark);
+}
+
 .button {
   appearance: none;
   background: none;
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
   border: 2px solid var(--link-color);
   border-radius: var(--border-radius);
